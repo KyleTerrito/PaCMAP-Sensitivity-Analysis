@@ -1,0 +1,14 @@
+Three stages:
+
+1. Generate Results
+    - Put a datafile into the "DATA" folder.
+    - Make sure the file path is updated to that file name.
+    - This code will perform DR&Clustering and save reduced datafile.
+    - See "RESULTS" folder for the saved items.
+
+2. Analyze Results
+    - Load an interactive plot for viewing the DR results.
+    - Make sure to set file paths to the correct items in the "RESULTS" folder.
+
+3. Sensitivity Analysis   
+    - Experiment with different PaCMAP iteration values by setting "min_iters", "max_iters", and "interval".
