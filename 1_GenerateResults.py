@@ -15,17 +15,31 @@ os.makedirs(results_folder, exist_ok=True)
 print(f"Created directory: {results_folder}")
 
 # Load data
-file_path = os.path.join("DATA", "molecular_descriptors.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
 df = pd.read_csv(file_path)
 
 ############################################################################################################
-# Generate a random 5-letter name for each row
+# If the original dataset does not have a 'Name' column, create a random name for each row
 def random_name():
     return ''.join(random.choices(string.ascii_uppercase, k=5))
 
-df['Name'] = [random_name() for _ in range(df.shape[0])]
-df['TARGET'] = np.random.randint(0, 101, size=df.shape[0])  # Random integer target values
-df['Index'] = range(df.shape[0])  # Index column
+if not 'Name' in df.columns:
+    df['Name'] = [random_name() for _ in range(df.shape[0])]
+
+# If the original dataset does not have a 'TARGET' column, create a random target value for each row
+if not 'TARGET' in df.columns:
+    df['TARGET'] = np.random.randint(0, 101, size=df.shape[0])  # Random integer target values
+
+# If the original dataset does not have an 'Index' column, create an index column
+if not 'Index' in df.columns:
+    df['Index'] = range(df.shape[0])  # Index column
+
+# Drop columns with SMILES data
+cols_to_drop = [col for col in ['SMILES', 'smiles', 'Smiles'] if col in df.columns]
+if cols_to_drop:
+    df.drop(cols_to_drop, axis=1, inplace=True)
 ############################################################################################################
 
 # Save the new dataset

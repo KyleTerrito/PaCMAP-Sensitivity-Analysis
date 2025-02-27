@@ -4,10 +4,15 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output
 
-# Load data
-original_data = pd.read_csv('RESULTS\\2025-02-26_17-15-04\\original_data.csv')
-reduced_data = pd.read_csv('RESULTS\\2025-02-26_17-15-04\\reduced_data.csv')
-cluster_labels = pd.read_csv('RESULTS\\2025-02-26_17-15-04\\cluster_labels.csv')
+# Load results folder
+folder = r'RESULTS\2025-02-27_08-28-18'
+
+original_data = pd.read_csv(f'{folder}\\original_data.csv')
+reduced_data = pd.read_csv(f'{folder}\\reduced_data.csv')
+cluster_labels = pd.read_csv(f'{folder}\\cluster_labels.csv')
+# original_data = pd.read_csv('RESULTS\\2025-02-27_17-15-04\\original_data.csv')
+# reduced_data = pd.read_csv('RESULTS\\2025-02-27_17-15-04\\reduced_data.csv')
+# cluster_labels = pd.read_csv('RESULTS\\2025-02-27_17-15-04\\cluster_labels.csv')
 
 # Ensure reduced_data has an Index column for mapping
 reduced_data['Index'] = reduced_data.index

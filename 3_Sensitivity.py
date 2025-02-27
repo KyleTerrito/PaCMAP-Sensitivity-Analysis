@@ -14,8 +14,18 @@ os.makedirs(results_folder, exist_ok=True)
 print(f"Created directory: {results_folder}")
 
 # Load data
-file_path = os.path.join("DATA", "molecular_descriptors.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
 df = pd.read_csv(file_path)
+
+#drop non-feature columns
+if 'Name' in df.columns:
+    df.drop(['Name'], axis=1, inplace=True)
+if 'TARGET' in df.columns:
+    df.drop(['TARGET'], axis=1, inplace=True)
+if 'Index' in df.columns:
+    df.drop(['Index'], axis=1, inplace=True)
 
 # Standardize the data
 scaler = StandardScaler()
@@ -24,7 +34,7 @@ df_scaled = scaler.fit_transform(df)
 # Hyperparameter range for num_iters
 min_iters = 10
 max_iters = 400
-interval = 40
+interval = 10
 
 # Loop over the desired range of num_iters
 for num_iters in range(min_iters, max_iters + 1, interval):
@@ -75,5 +85,5 @@ images = [Image.open(file) for file in image_files]
 
 # Save the images as an animated GIF
 # duration is in milliseconds per frame, loop=0 means infinite looping
-images[0].save(f'{results_folder}\\GIF.gif', save_all=True, append_images=images[1:], duration=200, loop=0)
+images[0].save(f'{results_folder}\\GIF.gif', save_all=True, append_images=images[1:], duration=500, loop=0)
 
