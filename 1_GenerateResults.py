@@ -9,6 +9,8 @@ from sklearn.cluster import DBSCAN
 import datetime
 from sklearn.preprocessing import StandardScaler
 
+'''MAKE SURE YOUR ORIGINAL DATA HAS A "Name" and "TARGET" COLUMN'''
+
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 results_folder = f"Results/{timestamp}"
 os.makedirs(results_folder, exist_ok=True)
@@ -17,7 +19,8 @@ print(f"Created directory: {results_folder}")
 # Load data
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
+file_path = os.path.join("DATA", "Data 6-16 Reduced.csv")
 df = pd.read_csv(file_path)
 
 ############################################################################################################
@@ -34,7 +37,8 @@ if not 'TARGET' in df.columns:
 
 # If the original dataset does not have an 'Index' column, create an index column
 if not 'Index' in df.columns:
-    df['Index'] = range(df.shape[0])  # Index column
+    # df['Index'] = range(df.shape[0])  # Index column
+    df['Index'] = range(1, df.shape[0]+ 1)  #start counting from 1
 
 # Drop columns with SMILES data
 cols_to_drop = [col for col in ['SMILES', 'smiles', 'Smiles'] if col in df.columns]
@@ -102,5 +106,7 @@ plt.savefig(os.path.join(results_folder, "PaCMAP_Clustering.png"))
 
 #save reduced data to results folder
 reduced_data_df = pd.DataFrame(reduced_data, columns=["Dim1", "Dim2"])
-reduced_data_df["Index"] = range(reduced_data_df.shape[0])
+# reduced_data_df["ID"] = range(reduced_data_df.shape[0])
+reduced_data_df["ID"] = range(1, reduced_data_df.shape[0] + 1) #start counting from 1
+reduced_data_df["Label"] = cluster_labels
 reduced_data_df.to_csv(os.path.join(results_folder, "reduced_data.csv"), index=False)

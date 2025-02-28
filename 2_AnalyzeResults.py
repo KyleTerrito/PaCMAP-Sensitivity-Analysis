@@ -5,22 +5,22 @@ import pandas as pd
 from dash.dependencies import Input, Output
 
 # Load results folder
-folder = r'RESULTS\2025-02-27_08-28-18'
+folder = r'RESULTS\2025-02-28_12-27-20'
 
 original_data = pd.read_csv(f'{folder}\\original_data.csv')
 reduced_data = pd.read_csv(f'{folder}\\reduced_data.csv')
 cluster_labels = pd.read_csv(f'{folder}\\cluster_labels.csv')
-# original_data = pd.read_csv('RESULTS\\2025-02-27_17-15-04\\original_data.csv')
-# reduced_data = pd.read_csv('RESULTS\\2025-02-27_17-15-04\\reduced_data.csv')
-# cluster_labels = pd.read_csv('RESULTS\\2025-02-27_17-15-04\\cluster_labels.csv')
+
+# print(reduced_data[['ID']].head())
+# print(original_data.head())
 
 # Ensure reduced_data has an Index column for mapping
-reduced_data['Index'] = reduced_data.index
-cluster_labels['Index'] = cluster_labels.index
+reduced_data['ID'] = reduced_data.index
+cluster_labels['ID'] = cluster_labels.index
 
-# Merge cluster labels into reduced_data for easy reference
-if 'Cluster' not in reduced_data.columns:
-    reduced_data = reduced_data.merge(cluster_labels, on='Index', how='left')
+# # Merge cluster labels into reduced_data for easy reference
+# if 'Cluster' not in reduced_data.columns:
+#     reduced_data = reduced_data.merge(cluster_labels, on='ID', how='left')
 
 # Create the Dash App
 app = dash.Dash(__name__)
@@ -58,27 +58,41 @@ app.layout = html.Div([
     Input('color-option', 'value')
 )
 def update_scatter_plot(color_option):
+    # # Attempt #1: Does not work. Each trace seems to reset its ID values. Only color "0" worked for the mapping.
+    # if color_option == 'cluster':
+    #     fig = px.scatter(
+    #         reduced_data, x='Dim1', y='Dim2',
+    #         # color=cluster_labels['Cluster Labels'].astype(str),  # Ensure categorical colors
+    #         hover_data={'ID': True},
+    #         custom_data=['ID']
+    #     )
+    # Attempt #2: Works. Used the column directly from reduced_data. However, the color scale is not categorical.
     if color_option == 'cluster':
         fig = px.scatter(
-            reduced_data, x='Dim1', y='Dim2',
-            color=cluster_labels['Cluster Labels'].astype(str),  # Ensure categorical colors
-            hover_data={'Index': True},
-            custom_data=['Index']
+            reduced_data, 
+            x='Dim1', y='Dim2',
+            # color='Cluster Labels',  # Use the column directly from reduced_data
+            color='Label',
+            hover_data={'ID': True},
+            custom_data=['ID'],
+            color_continuous_scale=px.colors.sequential.Turbo      # Use a categorical color scale
         )
+    # Attempt #3: #TODO: Fix the color scale to be categorical
+    # had issues with the mapping getting messed up when doing this. see attempt #1
     elif color_option == 'target':
         fig = px.scatter(
             reduced_data, x='Dim1', y='Dim2',
             color=original_data['TARGET'],  # Use continuous color mapping
             color_continuous_scale='Viridis',  # Choose a color scale
-            hover_data={'Index': True},
-            custom_data=['Index']
+            hover_data={'ID': True},
+            custom_data=['ID']
         )
         fig.update_coloraxes(colorbar_title="Target Value")  # Label the color bar
     else:  # Default (Blue)
         fig = px.scatter(
             reduced_data, x='Dim1', y='Dim2',
-            hover_data={'Index': True},
-            custom_data=['Index']
+            hover_data={'ID': True},
+            custom_data=['ID']
         )
         fig.update_traces(marker=dict(size=5, color='blue'))
     
@@ -99,8 +113,10 @@ def update_table(selectedData):
         for point in selectedData['points']:
             if 'customdata' in point and point['customdata']:
                 selected_indices.append(point['customdata'][0])
+                selected_indices = [i - 1 for i in selected_indices]
             elif 'pointIndex' in point:
                 selected_indices.append(point['pointIndex'])
+                selected_indices = [i - 1 for i in selected_indices]
         if not selected_indices:
             return html.Div("No valid point indices found in selection.")
         
@@ -127,9 +143,11 @@ def display_hover_data(hoverData):
         # Attempt to get the point index from 'customdata' if available.
         if 'customdata' in point_info and point_info['customdata']:
             point_index = point_info['customdata'][0]
+            point_index = point_index - 1
         # Fallback to 'pointIndex' if 'customdata' is missing.
         elif 'pointIndex' in point_info:
             point_index = point_info['pointIndex']
+            point_index = point_index - 1
         else:
             return html.Div("Hovered point data is missing expected information.")
         
