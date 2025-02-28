@@ -5,7 +5,7 @@ import pandas as pd
 from dash.dependencies import Input, Output
 
 # Load results folder
-folder = r'RESULTS\2025-02-27_08-28-18'
+folder = r'RESULTS\2025-02-27_11-45-42'
 
 original_data = pd.read_csv(f'{folder}\\original_data.csv')
 reduced_data = pd.read_csv(f'{folder}\\reduced_data.csv')

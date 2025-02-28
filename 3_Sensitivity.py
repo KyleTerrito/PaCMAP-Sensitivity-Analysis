@@ -15,8 +15,8 @@ print(f"Created directory: {results_folder}")
 
 # Load data
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
-# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
 df = pd.read_csv(file_path)
 
 #drop non-feature columns
