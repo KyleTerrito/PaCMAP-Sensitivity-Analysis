@@ -16,7 +16,9 @@ print(f"Created directory: {results_folder}")
 # Load data
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_produc2_Target-cmc.csv")
 df = pd.read_csv(file_path)
 
 #drop non-feature columns
@@ -26,6 +28,8 @@ if 'TARGET' in df.columns:
     df.drop(['TARGET'], axis=1, inplace=True)
 if 'Index' in df.columns:
     df.drop(['Index'], axis=1, inplace=True)
+if 'SMILES' in df.columns:
+    df.drop(['SMILES'], axis=1, inplace=True)
 
 # Standardize the data
 scaler = StandardScaler()
@@ -42,7 +46,7 @@ for num_iters in range(min_iters, max_iters + 1, interval):
     
     # Dimensionality reduction using PacMAP with current num_iters
     embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0,
-                              num_iters=num_iters, random_state=42)  
+                              num_iters=num_iters, random_state=2021)  
     reduced_data = embedding.fit_transform(df_scaled)
     
     # Apply DBSCAN clustering
@@ -77,8 +81,17 @@ for num_iters in range(min_iters, max_iters + 1, interval):
 from PIL import Image
 import glob
 
-# Get a sorted list of image file paths (adjust the pattern if needed)
+# # Get a sorted list of image file paths (adjust the pattern if needed)
+# image_files = sorted(glob.glob(f"{results_folder}\\*.png"))
+
+# Get all image files and filter only those with iterations from 10 to 120
 image_files = sorted(glob.glob(f"{results_folder}\\*.png"))
+
+# Extract iteration numbers and filter within range
+image_files = [file for file in image_files if 10 <= int(file.split("_")[-1].split(".")[0]) <= 400]
+
+# Sort the filtered files numerically
+image_files.sort(key=lambda x: int(x.split("_")[-1].split(".")[0]))
 
 # Open images and store them in a list
 images = [Image.open(file) for file in image_files]
