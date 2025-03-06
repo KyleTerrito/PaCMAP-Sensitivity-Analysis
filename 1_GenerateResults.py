@@ -19,7 +19,8 @@ print(f"Created directory: {results_folder}")
 # Load data
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_produc2_Target-cmc.csv")
 # file_path = os.path.join("DATA", "Data 6-16 Reduced.csv")
 df = pd.read_csv(file_path)
 
@@ -64,7 +65,7 @@ scaler = StandardScaler()
 df_scaled = scaler.fit_transform(df)
 
 # Reduce the data using PaCMAP
-embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0, num_iters=100,) #random_state=42)  
+embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0, num_iters=100,random_state=2021) #random_state=42)  
 reduced_data = embedding.fit_transform(df_scaled)
 
 # Apply DBSCAN clustering
@@ -98,7 +99,8 @@ for cluster, color in zip(unique_clusters, colors):
 plt.xlabel("PaCMAP Component 1")
 plt.ylabel("PaCMAP Component 2")
 plt.title("PaCMAP Clustering using DBSCAN")
-plt.legend(title="Clusters", loc="upper right", bbox_to_anchor=(1.2, 1))  # Legend for clusters
+# plt.legend(title="Clusters", loc="upper right", bbox_to_anchor=(1.2, 1))
+plt.legend(title="Clusters", loc="center left", bbox_to_anchor=(1, .8))  # Legend for clusters
 plt.grid(True)
 
 plt.tight_layout()
