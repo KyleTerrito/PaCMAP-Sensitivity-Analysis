@@ -1,0 +1,43 @@
+SHAP Analysis for Surfactant Properties
+=====================================
+
+Run date: 2025-03-06 18:51:25
+
+Input Files:
+  Descriptors: DATA/molecular_descriptors_concat_data_product2_Target-cmc.csv
+  Clusters: RESULTS/2025-03-06_12-55-55-cmc/cluster_labels.csv
+
+Dataset Information:
+  Number of samples: 104
+  Number of features: 25
+  CMC value range: 0.0000 to 33.7000
+  Number of clusters: 5
+  Cluster distribution: {1: 41, 3: 27, 2: 16, 0: 12, 4: 8}
+
+Model Performance:
+  CMC Regression R² score: -0.0008
+  Cluster Classification accuracy: 0.1538
+
+Top 10 Features for CMC Prediction:
+  1. LogP: 0.3365
+  2. HBD: 0.1071
+  3. PolarRatio: 0.0896
+  4. NumEthers: 0.0677
+  5. NumRings: 0.0606
+  6. RotBonds: 0.0550
+  7. LongestAliphaticChain: 0.0476
+  8. NumOH: 0.0371
+  9. Chi1v: 0.0281
+  10. FractionCSP3: 0.0254
+
+Top 10 Features for Cluster Classification:
+  1. FractionCSP3: 0.1177
+  2. LogP: 0.1067
+  3. HBD: 0.1006
+  4. NumOH: 0.0684
+  5. CarbonCount: 0.0485
+  6. HBA: 0.0457
+  7. LongestAliphaticChain: 0.0451
+  8. NumChargedAtoms: 0.0435
+  9. MolMR: 0.0375
+  10. LabuteASA: 0.0363
