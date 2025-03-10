@@ -19,8 +19,8 @@ print(f"Created directory: {results_folder}")
 # Load data
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
-# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-cmc.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-cmc.csv")
 # file_path = os.path.join("DATA", "Data 6-16 Reduced.csv")
 df = pd.read_csv(file_path)
 
