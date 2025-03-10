@@ -17,8 +17,8 @@ print(f"Created directory: {results_folder}")
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
-# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_produc2_Target-cmc.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-cmc.csv")
 df = pd.read_csv(file_path)
 
 #drop non-feature columns
@@ -30,6 +30,11 @@ if 'Index' in df.columns:
     df.drop(['Index'], axis=1, inplace=True)
 if 'SMILES' in df.columns:
     df.drop(['SMILES'], axis=1, inplace=True)
+if 'cmc' in df.columns:
+    df.drop(['cmc'], axis=1, inplace=True)
+elif 'Log(cmc*1000+1)' in df.columns:
+    df.drop(['Log(cmc*1000+1)'], axis=1, inplace=True)
+
 
 # Standardize the data
 scaler = StandardScaler()
@@ -46,7 +51,7 @@ for num_iters in range(min_iters, max_iters + 1, interval):
     
     # Dimensionality reduction using PacMAP with current num_iters
     embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0,
-                              num_iters=num_iters, random_state=2021)  
+                              num_iters=num_iters, random_state=101)  
     reduced_data = embedding.fit_transform(df_scaled)
     
     # Apply DBSCAN clustering
