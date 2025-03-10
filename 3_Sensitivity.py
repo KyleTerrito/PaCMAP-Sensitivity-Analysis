@@ -30,6 +30,10 @@ if 'Index' in df.columns:
     df.drop(['Index'], axis=1, inplace=True)
 if 'SMILES' in df.columns:
     df.drop(['SMILES'], axis=1, inplace=True)
+if 'cmc' in df.columns:
+    df.drop(['cmc'], axis=1, inplace=True)
+elif 'Log(cmc*1000+1)' in df.columns:
+    df.drop(['Log(cmc*1000+1)'], axis=1, inplace=True)
 
 # Standardize the data
 scaler = StandardScaler()
