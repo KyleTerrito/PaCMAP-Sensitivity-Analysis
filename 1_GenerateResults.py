@@ -19,8 +19,8 @@ print(f"Created directory: {results_folder}")
 # Load data
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
-# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_produc2_Target-cmc.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-cmc.csv")
 # file_path = os.path.join("DATA", "Data 6-16 Reduced.csv")
 df = pd.read_csv(file_path)
 
@@ -59,13 +59,21 @@ names.to_csv(os.path.join(results_folder, "names.csv"), index=False)
 targets.to_csv(os.path.join(results_folder, "targets.csv"), index=False)
 
 # Drop non-feature columns
-df.drop(['Name', 'TARGET', 'Index'], axis=1, inplace=True)
+# df.drop(['Name', 'TARGET', 'Index'], axis=1, inplace=True)
+columns_to_drop = ['Name', 'TARGET', 'Index']
+
+if 'cmc' in df.columns:
+    columns_to_drop.append('cmc')
+elif 'Log(cmc*1000+1)' in df.columns:
+    columns_to_drop.append('Log(cmc*1000+1)')
+
+df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
 scaler = StandardScaler()
 df_scaled = scaler.fit_transform(df)
 
 # Reduce the data using PaCMAP
-embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0, num_iters=100,random_state=2021) #random_state=42)  
+embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0, num_iters=100,random_state=101) #random_state=42)  
 reduced_data = embedding.fit_transform(df_scaled)
 
 # Apply DBSCAN clustering
