@@ -73,42 +73,25 @@ for index, row in original_data.iterrows():
 
 # Function to generate molecule image from SMILES with simplified approach
 def smiles_to_image(smiles, width=300, height=200):
-    try:
-        # Check for problem molecules (like those with sodium)
-        if 'Na' in smiles or '[Na]' in smiles or '[Na+]' in smiles:
-            # Try to pre-process the SMILES to fix sodium issues
-            # Sometimes just replacing [Na] with [Na+] helps
-            smiles = smiles.replace('[Na]', '[Na+]')
-            smiles = smiles.replace('Na', '[Na+]')
-            
-            # If parsing still fails, we'll provide a placeholder message
-            try:
-                mol = Chem.MolFromSmiles(smiles)
-                if not mol:
-                    # If we couldn't parse the smiles with sodium fixes, 
-                    # return a message instead of an image
-                    return "na_valence_error"
-            except:
-                return "na_valence_error"
-        
-        # Basic SMILES parsing for normal molecules
-        mol = Chem.MolFromSmiles(smiles)
-        if mol:
-            # Just use the default RDKit drawing
-            img = Draw.MolToImage(mol, size=(width, height))
-            
-            # Convert to base64 for display
-            buffered = io.BytesIO()
-            img.save(buffered, format="PNG")
-            encoded_image = base64.b64encode(buffered.getvalue()).decode()
-            return f"data:image/png;base64,{encoded_image}"
-        else:
-            return None
-    except Exception as e:
-        print(f"Error rendering molecule: {e}")
-        return None
     # try:
-    #     # Basic SMILES parsing - nothing fancy
+    #     # Check for problem molecules (like those with sodium)
+    #     if 'Na' in smiles or '[Na]' in smiles or '[Na+]' in smiles:
+    #         # Try to pre-process the SMILES to fix sodium issues
+    #         # Sometimes just replacing [Na] with [Na+] helps
+    #         smiles = smiles.replace('[Na]', '[Na+]')
+    #         smiles = smiles.replace('Na', '[Na+]')
+            
+    #         # If parsing still fails, we'll provide a placeholder message
+    #         try:
+    #             mol = Chem.MolFromSmiles(smiles)
+    #             if not mol:
+    #                 # If we couldn't parse the smiles with sodium fixes, 
+    #                 # return a message instead of an image
+    #                 return "na_valence_error"
+    #         except:
+    #             return "na_valence_error"
+        
+    #     # Basic SMILES parsing for normal molecules
     #     mol = Chem.MolFromSmiles(smiles)
     #     if mol:
     #         # Just use the default RDKit drawing
@@ -119,10 +102,27 @@ def smiles_to_image(smiles, width=300, height=200):
     #         img.save(buffered, format="PNG")
     #         encoded_image = base64.b64encode(buffered.getvalue()).decode()
     #         return f"data:image/png;base64,{encoded_image}"
+    #     else:
+    #         return None
     # except Exception as e:
     #     print(f"Error rendering molecule: {e}")
     #     return None
-    # return None
+    try:
+        # Basic SMILES parsing - nothing fancy
+        mol = Chem.MolFromSmiles(smiles)
+        if mol:
+            # Just use the default RDKit drawing
+            img = Draw.MolToImage(mol, size=(width, height))
+            
+            # Convert to base64 for display
+            buffered = io.BytesIO()
+            img.save(buffered, format="PNG")
+            encoded_image = base64.b64encode(buffered.getvalue()).decode()
+            return f"data:image/png;base64,{encoded_image}"
+    except Exception as e:
+        print(f"Error rendering molecule: {e}")
+        return None
+    return None
 
 # Create the Dash App
 app = dash.Dash(__name__)
