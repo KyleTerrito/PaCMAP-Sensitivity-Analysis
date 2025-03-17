@@ -1,0 +1,50 @@
+2025-03-15 16:08:10,857 - __main__ - INFO - PaCMAP successfully imported
+2025-03-15 16:08:10,866 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2025-03-15 16:08:16,304 - __main__ - INFO - PaCMAP successfully imported
+2025-03-15 16:08:30,171 - __main__ - ERROR - Error in update_analytics_output: 
+2025-03-15 16:08:30,172 - __main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 55, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 634, in update_analytics_output
+    raise PreventUpdate
+dash.exceptions.PreventUpdate
+
+2025-03-15 16:08:36,663 - __main__ - ERROR - Error in initialize_dim_reduction: 
+2025-03-15 16:08:36,664 - __main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 55, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 809, in initialize_dim_reduction
+    raise PreventUpdate
+dash.exceptions.PreventUpdate
+
+2025-03-15 16:08:36,690 - __main__ - ERROR - Error in update_output: 
+2025-03-15 16:08:36,690 - __main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 55, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 280, in update_output
+    raise PreventUpdate
+dash.exceptions.PreventUpdate
+
+2025-03-15 16:36:56,816 - __main__ - INFO - PaCMAP successfully imported
+2025-03-15 16:42:02,447 - __main__ - INFO - PaCMAP successfully imported
+2025-03-16 20:53:40,386 - __main__ - INFO - PaCMAP successfully imported
+2025-03-16 20:53:40,395 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2025-03-16 20:53:45,789 - __main__ - INFO - PaCMAP successfully imported
+2025-03-16 20:53:55,732 - __main__ - ERROR - Error in update_analytics_output: 
+2025-03-16 20:53:55,733 - __main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 55, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 634, in update_analytics_output
+    raise PreventUpdate
+dash.exceptions.PreventUpdate
+
+2025-03-16 20:54:04,372 - __main__ - ERROR - Error in use_analytics_data: 
+2025-03-16 20:54:04,373 - __main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 55, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Gabi\git\indorama_project\PaCMAP-Sensitivity-Analysis\app_dash.py", line 738, in use_analytics_data
+    raise PreventUpdate
+dash.exceptions.PreventUpdate
+
