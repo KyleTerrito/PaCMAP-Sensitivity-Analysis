@@ -93,7 +93,7 @@ import glob
 image_files = sorted(glob.glob(f"{results_folder}\\*.png"))
 
 # Extract iteration numbers and filter within range
-image_files = [file for file in image_files if 10 <= int(file.split("_")[-1].split(".")[0]) <= 400]
+image_files = [file for file in image_files if 10 <= int(file.split("_")[-1].split(".")[0]) <= 100]
 
 # Sort the filtered files numerically
 image_files.sort(key=lambda x: int(x.split("_")[-1].split(".")[0]))
