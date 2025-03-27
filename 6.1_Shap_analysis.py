@@ -10,6 +10,163 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import seaborn as sns
 
+def create_stacked_perm_importance_plot(perm_importance_results, feature_names, output_folder, num_classes, top_n=10):
+    """
+    Create a stacked horizontal bar chart showing permutation importance by cluster.
+    
+    Parameters:
+    perm_importance_results (dict): Dictionary of permutation importance results by cluster
+    feature_names (list): List of feature names
+    output_folder (str): Path to save output files
+    num_classes (int): Number of clusters
+    top_n (int): Number of top features to display
+    """
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import matplotlib.patches as mpatches
+    
+    # Calculate importance values for each feature and cluster
+    importance_matrix = np.zeros((len(feature_names), num_classes))
+    for cluster_idx in range(num_classes):
+        importance_matrix[:, cluster_idx] = perm_importance_results[cluster_idx].importances_mean
+    
+    # Create DataFrame for plotting
+    importance_df = pd.DataFrame(importance_matrix, index=feature_names)
+    
+    # Get total importance and sort features
+    importance_df['total'] = importance_df.sum(axis=1)
+    importance_df = importance_df.sort_values('total', ascending=False)
+    importance_df = importance_df.drop('total', axis=1)
+    
+    # Get top N features
+    top_features = importance_df.head(top_n).index.tolist()
+    top_importance_df = importance_df.loc[top_features]
+    
+    # Reverse to have most important at the top
+    top_importance_df = top_importance_df.iloc[::-1]
+    
+    # Create color map for clusters
+    colors = plt.cm.get_cmap( 'rainbow', num_classes)
+    cluster_colors = [colors(i) for i in range(num_classes)]
+    
+    # Create stacked bar chart
+    fig = plt.figure(figsize=(12, 8))
+    ax = fig.add_subplot(111)
+    
+    left = np.zeros(len(top_features))
+    for cluster_idx in range(num_classes):
+        ax.barh(
+            top_features, 
+            top_importance_df.iloc[:, cluster_idx], 
+            left=left, 
+            color=cluster_colors[cluster_idx], 
+            label=f'Cluster {cluster_idx}'
+        )
+        left += top_importance_df.iloc[:, cluster_idx]
+    
+    # Add labels and legend
+    ax.set_xlabel('Permutation Importance', fontsize=14)
+    ax.set_title('Feature Importance by Cluster (Permutation Importance)', fontsize=14)
+    
+    # Adjust y-axis (features) font size
+    ax.tick_params(axis='y', labelsize=12)
+
+    # If you also want to adjust x-axis tick labels
+    ax.tick_params(axis='x', labelsize=12)  
+
+    # Create legend patches
+    patches = [mpatches.Patch(color=colors(i), label=f'Cluster {i}') for i in range(num_classes)]
+    ax.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_folder, "stacked_permutation_importance.png"), dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # Save the data
+    top_importance_df.to_csv(os.path.join(output_folder, "stacked_permutation_importance.csv"))
+    
+    print(f"Stacked permutation importance plot saved to {output_folder}")
+
+# def create_stacked_perm_importance_plot(perm_importance_results, feature_names, output_folder, num_classes, top_n=10):
+#     """
+#     Create a stacked horizontal bar chart showing permutation importance by cluster.
+#     Using colors similar to those in SHAP visualizations.
+#     """
+#     import numpy as np
+#     import pandas as pd
+#     import matplotlib.pyplot as plt
+#     import matplotlib.patches as mpatches
+    
+#     # Calculate importance values for each feature and cluster
+#     importance_matrix = np.zeros((len(feature_names), num_classes))
+#     for cluster_idx in range(num_classes):
+#         importance_matrix[:, cluster_idx] = perm_importance_results[cluster_idx].importances_mean
+    
+#     # Create DataFrame for plotting
+#     importance_df = pd.DataFrame(importance_matrix, index=feature_names)
+    
+#     # Get total importance and sort features
+#     importance_df['total'] = importance_df.sum(axis=1)
+#     importance_df = importance_df.sort_values('total', ascending=False)
+#     importance_df = importance_df.drop('total', axis=1)
+    
+#     # Get top N features
+#     top_features = importance_df.head(top_n).index.tolist()
+#     top_importance_df = importance_df.loc[top_features]
+    
+#     # Reverse to have most important at the top
+#     top_importance_df = top_importance_df.iloc[::-1]
+    
+#     # SHAP-like colors (approximating colors often used in SHAP categorical plots)
+#     # This color scheme is derived from the default matplotlib color cycle, which is similar 
+#     # to what SHAP uses for categorical data
+#     shap_colors = [
+#         '#1f77b4',  # blue
+#         '#ff7f0e',  # orange
+#         '#2ca02c',  # green
+#         '#d62728',  # red
+#         '#9467bd',  # purple
+#         '#8c564b',  # brown
+#         '#e377c2',  # pink
+#         '#7f7f7f',  # gray
+#         '#bcbd22',  # olive
+#         '#17becf'   # cyan
+#     ]
+    
+#     # Create stacked bar chart
+#     fig = plt.figure(figsize=(12, 8))
+#     ax = fig.add_subplot(111)
+    
+#     left = np.zeros(len(top_features))
+#     for cluster_idx in range(num_classes):
+#         ax.barh(
+#             top_features, 
+#             top_importance_df.iloc[:, cluster_idx], 
+#             left=left, 
+#             color=shap_colors[cluster_idx % len(shap_colors)], 
+#             label=f'Cluster {cluster_idx}'
+#         )
+#         left += top_importance_df.iloc[:, cluster_idx]
+    
+#     # Add labels and legend
+#     ax.set_xlabel('Permutation Importance')
+#     ax.set_title('Feature Importance by Cluster (Permutation Importance)')
+    
+#     # Create legend patches
+#     patches = [mpatches.Patch(color=shap_colors[i % len(shap_colors)], label=f'Cluster {i}') 
+#                for i in range(num_classes)]
+#     ax.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
+    
+#     plt.tight_layout()
+#     plt.savefig(os.path.join(output_folder, "stacked_permutation_importance.png"), dpi=300, bbox_inches='tight')
+#     plt.close()
+    
+#     # Save the data
+#     top_importance_df.to_csv(os.path.join(output_folder, "stacked_permutation_importance.csv"))
+    
+#     print(f"Stacked permutation importance plot saved to {output_folder}")
+
 def analyze_shap_contributions(input_folder, output_folder=None):
     """
     Analyze feature contributions for cluster classification using XGBoost and SHAP.
@@ -31,6 +188,11 @@ def analyze_shap_contributions(input_folder, output_folder=None):
     # Load the data
     original_data = pd.read_csv(os.path.join(input_folder, "original_data.csv"))
     cluster_labels = pd.read_csv(os.path.join(input_folder, "cluster_labels.csv"))["Cluster Labels"]
+
+    # Filter out noise (-1) labels
+    valid_indices = cluster_labels != -1
+    cluster_labels = cluster_labels[valid_indices]
+    original_data = original_data[valid_indices]
     
     # Extract feature columns (drop non-feature columns)
     columns_to_drop = []
@@ -169,7 +331,7 @@ def analyze_shap_contributions(input_folder, output_folder=None):
         for i in range(num_classes):
             for j in range(i+1, num_classes):
                 cluster_pairs.append((i, j))
-        
+            
         # For each cluster pair, find the top differentiating features
         for cluster1, cluster2 in cluster_pairs:
             # Calculate absolute difference between SHAP values for the two clusters
@@ -291,6 +453,16 @@ def analyze_shap_contributions(input_folder, output_folder=None):
                 index=False
             )
         
+        # Create stacked permutation importance plot
+        print("Creating stacked permutation importance plot...")
+        create_stacked_perm_importance_plot(
+            perm_importance_results,
+            feature_columns,
+            output_folder,
+            num_classes,
+            top_n=10
+        )
+
         # Create pairwise comparison of feature importance
         for i in range(num_classes):
             for j in range(i+1, num_classes):
@@ -335,8 +507,9 @@ def analyze_shap_contributions(input_folder, output_folder=None):
     print(f"\nAll analysis results saved to {output_folder}")
     return output_folder
 
+
 # Example usage
 if __name__ == "__main__":
     # Use your specific folder
-    input_folder = r"RESULTS\2025-03-09_20-03-29-logcmc"
+    input_folder = r"RESULTS\2025-03-27_13-51-38"
     analyze_shap_contributions(input_folder)
