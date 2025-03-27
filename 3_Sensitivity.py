@@ -17,7 +17,8 @@ print(f"Created directory: {results_folder}")
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+file_path = os.path.join("DATA", "valid_molecules_data_cmc.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-cmc.csv")
 df = pd.read_csv(file_path)
 
@@ -28,8 +29,8 @@ if 'TARGET' in df.columns:
     df.drop(['TARGET'], axis=1, inplace=True)
 if 'Index' in df.columns:
     df.drop(['Index'], axis=1, inplace=True)
-if 'SMILES' in df.columns:
-    df.drop(['SMILES'], axis=1, inplace=True)
+if 'smiles' in df.columns:
+    df.drop(['smiles'], axis=1, inplace=True)
 if 'cmc' in df.columns:
     df.drop(['cmc'], axis=1, inplace=True)
 elif 'Log(cmc*1000+1)' in df.columns:
@@ -42,7 +43,7 @@ df_scaled = scaler.fit_transform(df)
 
 # Hyperparameter range for num_iters
 min_iters = 10
-max_iters = 400
+max_iters = 200
 interval = 10
 
 # Loop over the desired range of num_iters
@@ -50,12 +51,12 @@ for num_iters in range(min_iters, max_iters + 1, interval):
     print(f"Running PacMAP with num_iters = {num_iters}")
     
     # Dimensionality reduction using PacMAP with current num_iters
-    embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0,
+    embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.7, FP_ratio=1.0,
                               num_iters=num_iters, random_state=101)  
     reduced_data = embedding.fit_transform(df_scaled)
     
     # Apply DBSCAN clustering
-    dbscan = DBSCAN(eps=3, min_samples=5)
+    dbscan = DBSCAN(eps=2.5, min_samples=10)
     cluster_labels = dbscan.fit_predict(reduced_data)
     
     # Get unique clusters and assign colors
