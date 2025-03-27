@@ -1,0 +1,182 @@
+Top 10 Parameter Combinations:
+
+Rank 1:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.7
+    FP_ratio: 1.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 2.5
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.4777064323425293
+    davies_bouldin_score: 11.94969349104169
+    calinski_harabasz_score: 142.97658737805412
+    num_clusters: 5
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.2423
+  Number of Clusters: 5
+
+Rank 2:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.7
+    FP_ratio: 1.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 1.5
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.601849377155304
+    davies_bouldin_score: 2.5895355938413216
+    calinski_harabasz_score: 199.77886817138707
+    num_clusters: 8
+    noise_ratio: 0.07368421052631578
+  Weighted Score: 0.2250
+  Number of Clusters: 8
+
+Rank 3:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.7
+    FP_ratio: 1.0
+    num_iters: 100
+  DBSCAN Parameters:
+    eps: 2.5
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.42207100987434387
+    davies_bouldin_score: 8.229044505991382
+    calinski_harabasz_score: 126.53503004142377
+    num_clusters: 5
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.1999
+  Number of Clusters: 5
+
+Rank 4:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.7
+    FP_ratio: 1.0
+    num_iters: 100
+  DBSCAN Parameters:
+    eps: 1.5
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.5844889879226685
+    davies_bouldin_score: 2.365533331330501
+    calinski_harabasz_score: 168.74224839759384
+    num_clusters: 9
+    noise_ratio: 0.07368421052631578
+  Weighted Score: 0.1992
+  Number of Clusters: 9
+
+Rank 5:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.3
+    FP_ratio: 2.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 4.0
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.6910371780395508
+    davies_bouldin_score: 1.3382276896208356
+    calinski_harabasz_score: 334.46855010210925
+    num_clusters: 7
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.1882
+  Number of Clusters: 7
+
+Rank 6:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.3
+    FP_ratio: 2.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 5.0
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.6910371780395508
+    davies_bouldin_score: 1.3382276896208356
+    calinski_harabasz_score: 334.46855010210925
+    num_clusters: 7
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.1882
+  Number of Clusters: 7
+
+Rank 7:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.3
+    FP_ratio: 2.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 6.0
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.6910371780395508
+    davies_bouldin_score: 1.3382276896208356
+    calinski_harabasz_score: 334.46855010210925
+    num_clusters: 7
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.1882
+  Number of Clusters: 7
+
+Rank 8:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.5
+    FP_ratio: 2.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 4.0
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.6910371780395508
+    davies_bouldin_score: 1.3382276896208356
+    calinski_harabasz_score: 334.46855010210925
+    num_clusters: 7
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.1882
+  Number of Clusters: 7
+
+Rank 9:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.5
+    FP_ratio: 2.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 5.0
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.6910371780395508
+    davies_bouldin_score: 1.3382276896208356
+    calinski_harabasz_score: 334.46855010210925
+    num_clusters: 7
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.1882
+  Number of Clusters: 7
+
+Rank 10:
+  PacMAP Parameters:
+    n_neighbors: 5
+    MN_ratio: 0.5
+    FP_ratio: 2.0
+    num_iters: 200
+  DBSCAN Parameters:
+    eps: 6.0
+    min_samples: 10
+  Metrics:
+    silhouette_score: 0.6910371780395508
+    davies_bouldin_score: 1.3382276896208356
+    calinski_harabasz_score: 334.46855010210925
+    num_clusters: 7
+    noise_ratio: 0.05263157894736842
+  Weighted Score: 0.1882
+  Number of Clusters: 7
+

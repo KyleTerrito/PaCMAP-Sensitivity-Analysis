@@ -1,0 +1,12 @@
+{
+    "pacmap": {
+        "n_neighbors": 5,
+        "MN_ratio": 0.7,
+        "FP_ratio": 1.0,
+        "num_iters": 200
+    },
+    "dbscan": {
+        "eps": 2.5,
+        "min_samples": 10
+    }
+}

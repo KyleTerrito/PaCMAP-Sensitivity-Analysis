@@ -19,7 +19,8 @@ print(f"Created directory: {results_folder}")
 # Load data
 # file_path = os.path.join("DATA", "molecular_descriptors.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product.csv")
-file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+# file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-Logcmc.csv")
+file_path = os.path.join("DATA", "valid_molecules_data_cmc.csv")
 # file_path = os.path.join("DATA", "molecular_descriptors_concat_data_product2_Target-cmc.csv")
 # file_path = os.path.join("DATA", "Data 6-16 Reduced.csv")
 df = pd.read_csv(file_path)
@@ -29,8 +30,8 @@ df = pd.read_csv(file_path)
 def random_name():
     return ''.join(random.choices(string.ascii_uppercase, k=5))
 
-if not 'Name' in df.columns:
-    df['Name'] = [random_name() for _ in range(df.shape[0])]
+# if not 'Name' in df.columns:
+#     df['Name'] = [random_name() for _ in range(df.shape[0])]
 
 # If the original dataset does not have a 'TARGET' column, create a random target value for each row
 if not 'TARGET' in df.columns:
@@ -52,15 +53,16 @@ output_path = os.path.join(results_folder, "original_data.csv")
 df.to_csv(output_path, index=False)
 
 # Store names and targets before dropping them
-names = df['Name']
+# names = df['Name']
 targets = df['TARGET']
 
-names.to_csv(os.path.join(results_folder, "names.csv"), index=False)
+# names.to_csv(os.path.join(results_folder, "names.csv"), index=False)
 targets.to_csv(os.path.join(results_folder, "targets.csv"), index=False)
 
 # Drop non-feature columns
 # df.drop(['Name', 'TARGET', 'Index'], axis=1, inplace=True)
-columns_to_drop = ['Name', 'TARGET', 'Index']
+# columns_to_drop = ['Name', 'TARGET', 'Index'] 
+columns_to_drop = ['TARGET', 'Index']
 
 if 'cmc' in df.columns:
     columns_to_drop.append('cmc')
@@ -73,7 +75,7 @@ scaler = StandardScaler()
 df_scaled = scaler.fit_transform(df)
 
 # Reduce the data using PaCMAP
-embedding = pacmap.PaCMAP(n_components=2, n_neighbors=5, MN_ratio=0.5, FP_ratio=2.0, num_iters=100,random_state=101) #random_state=42)  
+embedding = pacmap.PaCMAP(n_components=2, n_neighbors=10, MN_ratio=0.5, FP_ratio=3.0, num_iters=100,random_state=101) #random_state=42)   ,random_state=101
 reduced_data = embedding.fit_transform(df_scaled)
 
 # Apply DBSCAN clustering

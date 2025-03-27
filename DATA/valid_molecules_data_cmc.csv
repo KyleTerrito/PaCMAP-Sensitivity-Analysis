@@ -1,4 +1,4 @@
-smiles,logCMC,MW,LogP,TPSA,HBA,HBD,RotBonds,NumAromRings,FractionCSP3,NumRings,HeavyAtomCount,CarbonCount,AliphaticCarbonCount,NumOH,NumCarbonyls,NumCarboxyls,NumEthers,NumSulfurs,NumAmines,LabuteASA,NumChargedAtoms,MolMR,LongestAliphaticChain,PolarRatio,Chi0v,Chi1v
+smiles,TARGET,MW,LogP,TPSA,HBA,HBD,RotBonds,NumAromRings,FractionCSP3,NumRings,HeavyAtomCount,CarbonCount,AliphaticCarbonCount,NumOH,NumCarbonyls,NumCarboxyls,NumEthers,NumSulfurs,NumAmines,LabuteASA,NumChargedAtoms,MolMR,LongestAliphaticChain,PolarRatio,Chi0v,Chi1v
 CC(C)(C)CC(C)(C)c1ccc(OCCOCCO)cc1,-0.886056648,294.2194948,3.7881,38.69,3,1,8,1,0.666666667,1,21,18,12,1,0,0,2,0,0,128.8320327,0,86.9398,5,1.842380952,14.10864516,7.664851301
 CC(C)(C)CC(C)(C)c1ccc(OCCOCCOCCO)cc1,-1.013228266,338.2457096,3.8047,47.92,4,1,11,1,0.7,1,24,20,14,1,0,0,3,0,0,146.6754622,0,97.7588,5,1.996666667,15.93110701,8.74220157
 CC(C)(C)CC(C)(C)c1ccc(OCCOCCOCCOCCO)cc1,-0.886056648,382.2719243,3.8213,57.15,5,1,14,1,0.727272727,1,27,22,16,1,0,0,4,0,0,164.5188916,0,108.5778,5,2.116666667,17.75356886,9.81955184
