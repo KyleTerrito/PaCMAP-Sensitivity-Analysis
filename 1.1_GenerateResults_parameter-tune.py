@@ -27,18 +27,19 @@ class NumpyEncoder(json.JSONEncoder):
 '''MAKE SURE YOUR ORIGINAL DATA HAS A "Name" and "TARGET" COLUMN'''
 
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-results_folder = f"Results/{timestamp}"
+results_folder = f"Results/data2/{timestamp}"
 os.makedirs(results_folder, exist_ok=True)
 print(f"Created directory: {results_folder}")
 
 # Load data
-file_path = os.path.join("DATA", "valid_molecules_data_cmc.csv")
+# file_path = os.path.join("DATA", "valid_molecules_data_cmc.csv")
+file_path = os.path.join("DATA", "valid_molecules_data_cmc_data2.csv")
 df = pd.read_csv(file_path)
 
 ############################################################################################################
-# If the original dataset does not have a 'TARGET' column, create a random target value for each row
-if not 'TARGET' in df.columns:
-    df['TARGET'] = np.random.randint(0, 101, size=df.shape[0])  # Random integer target values
+# # If the original dataset does not have a 'TARGET' column, create a random target value for each row
+# if not 'TARGET' in df.columns:
+#     df['TARGET'] = np.random.randint(0, 101, size=df.shape[0])  # Random integer target values
 
 # If the original dataset does not have an 'Index' column, create an index column
 if not 'Index' in df.columns:

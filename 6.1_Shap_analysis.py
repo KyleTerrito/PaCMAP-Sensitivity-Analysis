@@ -45,10 +45,13 @@ def create_stacked_perm_importance_plot(perm_importance_results, feature_names, 
     
     # Reverse to have most important at the top
     top_importance_df = top_importance_df.iloc[::-1]
+
+    # Use tab10 colormap to match the cluster visualization
+    colors = plt.cm.tab10(np.linspace(0, 1, num_classes))
     
-    # Create color map for clusters
-    colors = plt.cm.get_cmap( 'rainbow', num_classes)
-    cluster_colors = [colors(i) for i in range(num_classes)]
+    # # Create color map for clusters
+    # colors = plt.cm.get_cmap( 'Set2', num_classes)
+    # cluster_colors = [colors(i) for i in range(num_classes)]
     
     # Create stacked bar chart
     fig = plt.figure(figsize=(12, 8))
@@ -60,7 +63,8 @@ def create_stacked_perm_importance_plot(perm_importance_results, feature_names, 
             top_features, 
             top_importance_df.iloc[:, cluster_idx], 
             left=left, 
-            color=cluster_colors[cluster_idx], 
+            # color=cluster_colors[cluster_idx],
+            color=colors[cluster_idx],
             label=f'Cluster {cluster_idx}'
         )
         left += top_importance_df.iloc[:, cluster_idx]
@@ -76,7 +80,8 @@ def create_stacked_perm_importance_plot(perm_importance_results, feature_names, 
     ax.tick_params(axis='x', labelsize=12)  
 
     # Create legend patches
-    patches = [mpatches.Patch(color=colors(i), label=f'Cluster {i}') for i in range(num_classes)]
+    # patches = [mpatches.Patch(color=colors(i), label=f'Cluster {i}') for i in range(num_classes)]
+    patches = [mpatches.Patch(color=colors[i], label=f'Cluster {i}') for i in range(num_classes)]
     ax.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
     
     plt.tight_layout()
@@ -511,5 +516,7 @@ def analyze_shap_contributions(input_folder, output_folder=None):
 # Example usage
 if __name__ == "__main__":
     # Use your specific folder
-    input_folder = r"RESULTS\2025-03-27_13-51-38"
+    # input_folder = r"RESULTS\2025-03-27_13-51-38"
+    input_folder = r"RESULTS\2025-03-27_17-15-51_data1"
+    # input_folder = r"RESULTS\2025-03-27_17-12-57_data2"
     analyze_shap_contributions(input_folder)

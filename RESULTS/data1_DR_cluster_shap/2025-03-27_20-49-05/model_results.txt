@@ -1,0 +1,4 @@
+Model: XGBoost
+Accuracy: 1.0
+Data shape: (285, 25)
+Number of clusters: 4
