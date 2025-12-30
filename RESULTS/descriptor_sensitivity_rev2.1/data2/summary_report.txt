@@ -1,0 +1,55 @@
+======================================================================
+DESCRIPTOR SENSITIVITY ANALYSIS - SUMMARY REPORT
+======================================================================
+
+Dataset: DATA/valid_molecules_data_cmc_data2.csv
+Number of molecules: 365
+Number of descriptors (original): 25
+
+CLUSTERING ROBUSTNESS:
+----------------------------------------------------------------------
+
+Average ARI vs. Baseline by Descriptor Set:
+  Extended                 : 0.332 ± 0.274
+  Functional_Only          : 0.149 ± 0.098
+  MACCS_Keys               : 0.140 ± 0.127
+  Minimal_10               : 0.269 ± 0.191
+  MolecularProps_Only      : 0.039 ± 0.077
+  Morgan_FP                : 0.097 ± 0.066
+  Original_25              : 0.332 ± 0.274
+  Structural_Only          : 0.133 ± 0.069
+
+Interpretation:
+  ARI > 0.8: High similarity (clustering is robust)
+  ARI 0.5-0.8: Moderate similarity
+  ARI < 0.5: Low similarity (descriptor choice matters)
+
+MULTICOLLINEARITY ANALYSIS (VIF):
+----------------------------------------------------------------------
+Features with VIF > 10 (high multicollinearity): 22
+  CarbonCount              : VIF = 37980.38
+  MolMR                    : VIF = 17969.98
+  AliphaticCarbonCount     : VIF = 14097.27
+  LabuteASA                : VIF = 6860.55
+  Chi0v                    : VIF = 5426.24
+  HeavyAtomCount           : VIF = 3494.04
+  Chi1v                    : VIF = 2755.69
+  MW                       : VIF = 1820.50
+  TPSA                     : VIF = 1347.79
+  HBA                      : VIF = 864.92
+  RotBonds                 : VIF = 642.82
+  NumEthers                : VIF = 519.96
+  HBD                      : VIF = 481.26
+  NumAromRings             : VIF = 418.42
+  NumOH                    : VIF = 340.76
+  NumRings                 : VIF = 72.97
+  LogP                     : VIF = 69.16
+  NumChargedAtoms          : VIF = 35.34
+  NumAmines                : VIF = 22.53
+  NumCarbonyls             : VIF = 19.85
+  PolarRatio               : VIF = 15.43
+  FractionCSP3             : VIF = 15.16
+
+HIGH CORRELATIONS:
+----------------------------------------------------------------------
+Number of highly correlated pairs (|r| > 0.8): 59

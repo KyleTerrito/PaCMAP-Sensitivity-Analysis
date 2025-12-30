@@ -517,6 +517,6 @@ def analyze_shap_contributions(input_folder, output_folder=None):
 if __name__ == "__main__":
     # Use your specific folder
     # input_folder = r"RESULTS\2025-03-27_13-51-38"
-    input_folder = r"RESULTS\2025-03-27_17-15-51_data1"
-    # input_folder = r"RESULTS\2025-03-27_17-12-57_data2"
+    # input_folder = r"RESULTS\2025-03-27_17-15-51_data1"
+    input_folder = r"RESULTS\2025-03-27_17-12-57_data2"
     analyze_shap_contributions(input_folder)

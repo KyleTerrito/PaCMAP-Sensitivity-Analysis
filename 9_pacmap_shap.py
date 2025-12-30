@@ -15,7 +15,7 @@ import datetime
 def main():
     # Create results directory with timestamp
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    data_name = 'data1'
+    data_name = 'data2'
     results_folder = f"Results/{data_name}_DR_cluster_shap/{timestamp}"
     os.makedirs(results_folder, exist_ok=True)
     print(f"Created directory: {results_folder}")
